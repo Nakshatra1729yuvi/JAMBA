@@ -14,7 +14,6 @@
 - [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Project Structure](#project-structure)
 - [Requirements](#requirements)
 - [Contributing](#contributing)
 - [License](#license)
@@ -51,19 +50,14 @@ JAMBA combines the best of both worlds:
 
 ### Architecture Overview
 
-```
-Input Sequence
-     ↓
-  ┌──┴──┐
-  │ 🔀 │ [Mamba Block]
-  ├──┬──┤
-  │  │  │ [Transformer Attention]
-  └──┴──┘
-     ↓
-  MLP Layer
-     ↓
-Output
-```
+The JAMBA architecture combines Mamba blocks with Transformer attention layers:
+
+- **Mamba Blocks**: Provide linear-time sequence processing with state-space model capabilities
+- **Transformer Attention**: Capture complex dependencies and long-range relationships
+- **MLP Layers**: Add non-linearity and feature transformation
+- **Hybrid Design**: Seamlessly integrate both components for optimal performance
+
+The model alternates between Mamba and Transformer layers to balance computational efficiency with representational power.
 
 ---
 
@@ -87,22 +81,9 @@ Output
 
 ### Setup Steps
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/Nakshatra1729yuvi/JAMBA.git
-   cd JAMBA
-   ```
-
+1. **Clone the repository** from GitHub
 2. **Create a virtual environment** (recommended)
-   ```bash
-   python -m venv jamba_env
-   source jamba_env/bin/activate  # On Windows: jamba_env\Scripts\activate
-   ```
-
-3. **Install dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
+3. **Install dependencies** using the requirements.txt file
 
 ---
 
@@ -110,91 +91,29 @@ Output
 
 ### Using JAMBA.py
 
-```python
-from JAMBA import JAMBAModel
+The main model implementation is available in `JAMBA.py`. Initialize the model with your desired configuration parameters:
 
-# Initialize the model
-model = JAMBAModel(
-    vocab_size=50000,
-    d_model=512,
-    num_mamba_layers=4,
-    num_transformer_layers=4,
-    nhead=8,
-    dim_feedforward=2048,
-    max_seq_length=1024,
-    dropout=0.1
-)
-
-# Forward pass
-input_ids = torch.randint(0, 50000, (batch_size, seq_length))
-output = model(input_ids)
-print(output.shape)  # torch.Size([batch_size, seq_length, d_model])
-```
+- `vocab_size`: Size of the vocabulary
+- `d_model`: Dimension of the model
+- `num_mamba_layers`: Number of Mamba blocks
+- `num_transformer_layers`: Number of Transformer attention layers
+- `nhead`: Number of attention heads
+- `dim_feedforward`: Dimension of feedforward layers
+- `max_seq_length`: Maximum sequence length
+- `dropout`: Dropout rate
 
 ### Using Jamba_Hybrid_Mamba_Transformer_Arch.ipynb
 
 For interactive exploration and experimentation:
 
-1. **Open the notebook**
-   ```bash
-   jupyter notebook Jamba_Hybrid_Mamba_Transformer_Arch.ipynb
-   ```
-
-2. **Key sections in the notebook**
+1. **Open the notebook** for Jupyter-based experiments
+2. **Key sections in the notebook**:
    - 📚 Architecture explanation with visualizations
    - 🔧 Component implementation details
    - 🧪 Testing and validation examples
    - 📈 Performance benchmarks
    - 🎨 Visualization of attention patterns
-
-3. **Run experiments**
-   - Modify hyperparameters in the configuration cells
-   - Execute cells sequentially to train and evaluate the model
-   - Use provided utility functions for custom experiments
-
-### Basic Example
-
-```python
-import torch
-from JAMBA import JAMBAModel
-
-# Set device
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-
-# Create model
-model = JAMBAModel(
-    vocab_size=10000,
-    d_model=256,
-    num_mamba_layers=2,
-    num_transformer_layers=2,
-    nhead=4
-).to(device)
-
-# Create sample input
-batch_size, seq_length = 8, 128
-input_ids = torch.randint(0, 10000, (batch_size, seq_length)).to(device)
-
-# Forward pass
-with torch.no_grad():
-    output = model(input_ids)
-    print(f'Output shape: {output.shape}')
-    print(f'Model parameters: {sum(p.numel() for p in model.parameters()):,}')
-```
-
----
-
-## 📂 Project Structure
-
-```
-JAMBA/
-├── JAMBA.py                                      # Main model implementation
-├── Jamba_Hybrid_Mamba_Transformer_Arch.ipynb   # Interactive notebook
-├── requirements.txt                             # Python dependencies
-├── README.md                                    # This file
-├── LICENSE                                      # MIT License
-└── docs/                                        # Additional documentation
-    └── architecture.md
-```
+3. **Run experiments** by modifying hyperparameters and executing cells sequentially
 
 ---
 
@@ -202,32 +121,18 @@ JAMBA/
 
 ### Core Dependencies
 
-```
-torch>=2.0.0
-numpy>=1.21.0
-scipy>=1.7.0
-tqdm>=4.62.0
-```
+- torch >= 2.0.0
+- numpy >= 1.21.0
+- scipy >= 1.7.0
+- tqdm >= 4.62.0
 
 ### Optional Dependencies
 
-```
-jupyter>=1.0.0          # For notebook experiments
-matplotlib>=3.5.0       # For visualizations
-scikit-learn>=1.0.0     # For evaluation metrics
-```
+- jupyter >= 1.0.0 (for notebook experiments)
+- matplotlib >= 3.5.0 (for visualizations)
+- scikit-learn >= 1.0.0 (for evaluation metrics)
 
-### Install with pip
-
-```bash
-pip install torch numpy scipy tqdm jupyter matplotlib scikit-learn
-```
-
-### Install from requirements file
-
-```bash
-pip install -r requirements.txt
-```
+All dependencies are listed in `requirements.txt`
 
 ---
 
@@ -235,28 +140,13 @@ pip install -r requirements.txt
 
 Contributions are welcome! Here's how to contribute:
 
-1. **Fork the repository**
-   ```bash
-   git clone https://github.com/Nakshatra1729yuvi/JAMBA.git
-   ```
-
-2. **Create a feature branch**
-   ```bash
-   git checkout -b feature/your-feature-name
-   ```
-
-3. **Make your changes** and commit
-   ```bash
-   git add .
-   git commit -m "Add your descriptive commit message"
-   ```
-
-4. **Push to your fork**
-   ```bash
-   git push origin feature/your-feature-name
-   ```
-
+1. **Fork the repository** on GitHub
+2. **Create a feature branch** for your changes
+3. **Make your changes** and commit them with descriptive messages
+4. **Push to your fork** on GitHub
 5. **Open a Pull Request** on the main repository
+
+Please ensure your contributions follow the project's coding standards and include appropriate documentation.
 
 ---
 
